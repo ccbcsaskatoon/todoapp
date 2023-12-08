@@ -1,0 +1,27 @@
+version: 2.1
+
+jobs:
+  build:
+    docker:
+      - image: node:14  # Use a Node.js version appropriate for your project
+
+    steps:
+      - checkout  # Check out the code
+
+      - run:
+          name: Install Dependencies
+          command: npm install
+
+      - run:
+          name: Run Tests
+          command: npm test
+
+workflows:
+  version: 2
+  build:
+    jobs:
+      - build:
+          filters:
+            branches:
+              only:
+                - master
