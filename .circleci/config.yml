@@ -1,40 +1,52 @@
 version: 2.1
 
+# Define jobs, which represent individual steps in the CI/CD pipeline
 jobs:
   build:
+    # Use a Node.js Docker image for the build job
     docker:
-      - image: node:14  # Use a Node.js version appropriate for your project
+      - image: node:14  # Adjust Node.js version as needed
 
+    # Specify the steps to be executed in the build job
     steps:
-      - checkout  # Check out the code
+      - checkout  # Check out the code from the repository
 
+      # Install project dependencies using npm
       - run:
           name: Install Dependencies
           command: npm install
 
+      # Run tests using npm and Jest
       - run:
           name: Run Tests
           command: npm test
 
   deploy:
+    # Use the same Node.js Docker image for the deploy job
     docker:
-      - image: node:14  # Use the same Node.js version as in the build job
+      - image: node:14  # Adjust Node.js version as needed
 
+    # Specify the steps to be executed in the deploy job
     steps:
-      - checkout  # Check out the code
+      - checkout  # Check out the code from the repository
 
-      # Add deployment steps here (e.g., running a deployment script)
+      # Placeholder for deployment steps - customize based on your deployment process
+      - run:
+          name: Deploy to Production
+          command: ./scripts/deploy.sh  # Replace with your deployment script
 
+# Define workflows, which orchestrate the execution of multiple jobs
 workflows:
   version: 2
-  build:
+  build_and_deploy:
     jobs:
-      - build:
+      - build:  # Execute the build job first
           filters:
             branches:
               only:
-                - main  # Change this to the default branch of your repository
-      - deploy:
+                - main  # Adjust the branch as needed
+
+      - deploy:  # Execute the deploy job after a successful build
           requires:
             - build
           filters:
