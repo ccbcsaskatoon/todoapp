@@ -27,7 +27,7 @@ export default function TodoForm(props) {
                     <input type="text" placeholder="Description" value={enteredDesc} onChange={onEnterDescription}/>
                 </div>
                 <div className="btn">
-                    <button type="submit">Add</button>
+                    <button type="submit">Seema</button>
                 </div>
             </form>
         </div>
