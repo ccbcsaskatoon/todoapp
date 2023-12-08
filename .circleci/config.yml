@@ -1,36 +1,36 @@
 version: 2.1
 
 jobs:
-  build-frontend:
+  build:
     docker:
       - image: cimg/node:20.6.0
     steps:
       - checkout
       - restore_cache:
-          keys: [frontend-build]
+          keys: [build]
       - run:
-          name: Build front-end
+          name: Build
           command: |
             npm install
             npm run build
       - save_cache:
           paths: [node_modules]
-          key: frontend-build
+          key: build
 
-  scan-frontend:
+  scan:
     docker:
       - image: cimg/node:20.6.0
     steps:
       - checkout
       - restore_cache:
-          keys: [frontend-build]
+          keys: [build]
       - run:
-          name: Scan Frontend
+          name: Scan 
           command: |
             npm install
             npm audit fix --audit-level=critical
 
-  deploy-frontend:
+  deploy:
     machine:
       image: ubuntu-2004:202010-01
     steps:
@@ -50,10 +50,10 @@ workflows:
   version: 2
   build_and_scan_and_deploy:
     jobs:
-      - build-frontend
-      - scan-frontend:
+      - build
+      - scan:
           requires:
-            - build-frontend
-      - deploy-frontend:
+            - build
+      - deploy:
           requires:
-            - scan-frontend
+            - scan
