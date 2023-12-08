@@ -44,7 +44,7 @@ jobs:
       - run:
           name: Deploying to AWS S3
           command: |
-            aws s3 sync . s3://todoapplist/ --delete
+            aws s3 sync . s3://todoapplistccbc/ --delete
 
 workflows:
   version: 2
