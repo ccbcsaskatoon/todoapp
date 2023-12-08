@@ -16,6 +16,15 @@ jobs:
           name: Run Tests
           command: npm test
 
+  deploy:
+    docker:
+      - image: node:14  # Use the same Node.js version as in the build job
+
+    steps:
+      - checkout  # Check out the code
+
+      # Add deployment steps here (e.g., running a deployment script)
+
 workflows:
   version: 2
   build:
@@ -32,7 +41,3 @@ workflows:
             branches:
               only:
                 - main  # Adjust the branch as needed
-          steps:
-            - run:
-                name: Deploy to Production
-                command: ./scripts/deploy.sh  # Replace with your deployment script
