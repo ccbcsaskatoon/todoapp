@@ -1,0 +1,23 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 12.x
+    commands:
+      - echo Installing serverless
+      - npm install -g serverless
+      - echo Installing todo API dependencies
+      - cd backend
+      - npm install --silent
+      - echo Finished installing todo API dependencies
+  build:
+    commands:
+      - echo Deploying todo API
+      - serverless login
+      - serverless deploy
+      - echo Finished deploying todo API
+
+cache:
+  paths:
+    - "backend/node_modules/**/*"
