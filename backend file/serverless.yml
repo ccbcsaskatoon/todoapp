@@ -1,0 +1,15 @@
+org: patelarpit50
+app: mybackend-todo
+service: mybackend-todo
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+
+functions:
+  listTodos:
+    handler: handler.listTodos
+    events:
+      - http:
+          path: todo/list
+          method: get
